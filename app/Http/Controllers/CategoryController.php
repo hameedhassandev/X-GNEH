@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
@@ -33,5 +34,62 @@ class CategoryController extends Controller
         }
         $category->save();
         return back()->with('success', 'Category added successfully');
+    }
+
+    public function delete($id){
+        $category = DB::table('categories')->find($id);
+        if ($category){
+            return view('category.delete', compact('category'));
+        }else{
+            return response(404);
+        }
+
+    }
+
+    public function accDelete($id){
+        $category = Category::where('id',$id)->delete();
+        if ($category){
+            return redirect('dashboard/add-category')->with('success', 'Category deleted successfully!');
+        }
+        else{
+            return response(404);
+        }
+    }
+
+    public function edit($id){
+        $category = DB::table('categories')->find($id);
+        if ($category){
+            return view('category.update', compact('category'));
+        }else{
+            return response(404);
+        }
+
+    }
+    public function accEdit(Request $request, $id){
+        $category = Category::find($id);
+        if ($category){
+            $request->validate([
+                'name' => 'max:255',
+                'icon' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+
+            ]);
+            $category->name = $request->input('name');
+            if ($request->hasFile('icon')){
+                $destination = 'upload/categories/'.$category->icon;
+                if (File::exists($destination)){
+                    File::delete($destination);
+                }
+                $file = $request->file('icon');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time().'.'.$extension;
+                $file->move('upload/categories/',$filename);
+                $category->icon = $filename;
+            }
+            $category->update();
+            return redirect('dashboard/add-category')->with('success', 'Category updated successfully!');
+        }
+        else{
+            return response(404);
+        }
     }
 }

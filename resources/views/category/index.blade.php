@@ -8,7 +8,7 @@
                 <h4 class="text-center mt-4 mb-4">Add New Category</h4>
 
                 @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success" >
                         <p>{{ $message }}</p>
                     </div>
                 @endif
@@ -72,9 +72,9 @@
                             <td>{{ $category->name }}</td>
                             <td>
 
-                                    <a class="btn btn-info" href="">Edit</a>
+                                    <a class="btn btn-info" href="{{ url('dashboard/edit-category').'/'.$category->id }}">Edit</a>
 
-                                    <a class="btn btn-danger" href="">Delete</a>
+                                    <a class="btn btn-danger" href="{{ url('dashboard/delete-category').'/'.$category->id }}">Delete</a>
 
                             </td>
                         </tr>

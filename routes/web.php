@@ -26,6 +26,11 @@ Route::group(['middleware'=> ['auth']], function (){
 Route::group(['middleware'=> ['auth', 'role:admin']], function (){
     Route::get('/dashboard/add-category', [CategoryController::class, 'add'])->name('dashboard.addCategory');
     Route::post('/dashboard/add-category', [CategoryController::class, 'store'])->name('dashboard.storeCategory');
+    Route::get('/dashboard/delete-category/{id}', [CategoryController::class, 'delete']);
+    Route::get('/dashboard/accDelete-category/{id}', [CategoryController::class, 'accDelete']);
+    Route::get('/dashboard/edit-category/{id}', [CategoryController::class, 'edit']);
+    Route::put('/dashboard/accEdit-category/{id}', [CategoryController::class, 'accEdit']);
+
 });
 
 //for user
