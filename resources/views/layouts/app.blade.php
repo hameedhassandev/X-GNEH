@@ -54,6 +54,13 @@
                                     </a>
                                 </li>
                         @endif
+                            @if(Auth::check() && Auth::user()->hasRole('seller'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('dashboard.addProduct')}}">
+                                        Manage Products
+                                    </a>
+                                </li>
+                            @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->

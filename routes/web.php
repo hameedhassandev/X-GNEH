@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,12 +33,21 @@ Route::group(['middleware'=> ['auth', 'role:admin']], function (){
     Route::get('/dashboard/edit-category/{id}', [CategoryController::class, 'edit']);
     Route::put('/dashboard/accEdit-category/{id}', [CategoryController::class, 'accEdit']);
 
+
+});
+
+//for seller
+Route::group(['middleware'=> ['auth', 'role:seller']], function (){
+    Route::get('/dashboard/add-product', [ProductController::class, 'add'])->name('dashboard.addProduct');
+    Route::post('/dashboard/add-product', [ProductController::class, 'store'])->name('dashboard.storeProduct');
 });
 
 //for user
 Route::group(['middleware'=> ['auth', 'role:user']], function (){
     Route::get('/dashboard/profile', [UserController::class, 'myProfile'])->name('dashboard.profile');
 });
+
+
 
 //Route::get('/user/{id}', [UserController::class, 'show']);
 require __DIR__.'/auth.php';
