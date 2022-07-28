@@ -40,6 +40,7 @@ Route::group(['middleware'=> ['auth', 'role:admin']], function (){
 Route::group(['middleware'=> ['auth', 'role:seller']], function (){
     Route::get('/dashboard/add-product', [ProductController::class, 'add'])->name('dashboard.addProduct');
     Route::post('/dashboard/add-product', [ProductController::class, 'store'])->name('dashboard.storeProduct');
+    Route::get('/dashboard/list-products', [ProductController::class, 'list'])->name('dashboard.listProduct');
 });
 
 //for user

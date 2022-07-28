@@ -17,9 +17,13 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('product_name');
             $table->float('price');
+            $table->string('description');
             $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('filenames');
+            $table->boolean('isActive')->default('1');;
             $table->timestamps();
         });
     }
