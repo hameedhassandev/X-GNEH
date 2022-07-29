@@ -15,5 +15,7 @@ class Product extends Model
         'category_id',
         'user_id',
         'filenames',
-        'isActive'
-    ];}
+        'isActive',
+        'address'
+    ];
+}

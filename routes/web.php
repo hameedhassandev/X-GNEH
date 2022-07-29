@@ -32,6 +32,9 @@ Route::group(['middleware'=> ['auth', 'role:admin']], function (){
     Route::get('/dashboard/accDelete-category/{id}', [CategoryController::class, 'accDelete']);
     Route::get('/dashboard/edit-category/{id}', [CategoryController::class, 'edit']);
     Route::put('/dashboard/accEdit-category/{id}', [CategoryController::class, 'accEdit']);
+    Route::get('/dashboard/list-products', [ProductController::class, 'listAllForAdmin'])->name('dashboard.listProduct');
+    Route::get('/dashboard/list-products/product-details/{id}', [ProductController::class, 'productDetails']);
+
 
 
 });
@@ -40,7 +43,8 @@ Route::group(['middleware'=> ['auth', 'role:admin']], function (){
 Route::group(['middleware'=> ['auth', 'role:seller']], function (){
     Route::get('/dashboard/add-product', [ProductController::class, 'add'])->name('dashboard.addProduct');
     Route::post('/dashboard/add-product', [ProductController::class, 'store'])->name('dashboard.storeProduct');
-    Route::get('/dashboard/list-products', [ProductController::class, 'list'])->name('dashboard.listProduct');
+    Route::get('/dashboard/my-product/user/{id}', [ProductController::class, 'listAllForSeller']);
+
 });
 
 //for user

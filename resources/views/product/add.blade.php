@@ -52,8 +52,8 @@
                         <label for="description" class="col-md-4 col-form-label text-lg-end">{{ __('Product Description') }}</label>
 
                         <div class="col-md-6">
-                            <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" required >
 
+                            <textarea name="description" id="description" cols="30" rows="5"  class="form-control @error('description') is-invalid @enderror" required></textarea>
                             @error('description')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -82,9 +82,31 @@
                         </div>
                     </div>
 
+                <div class="row mb-3">
+                    <label for="category_id" class="col-md-4 col-form-label text-md-end">Your Governorate</label>
+                    <div class="col-md-6">
+                        <select name="address" id="address" class="form-control" required>
+                            <option value="" class="text-center">--Choose Area--</option>
+                            <option class="text-center" value="Cairo">[Cairo]</option>">
+                            <option class="text-center" value="Alexandria">[Alexandria]</option>">
+                            <option class="text-center" value="Giza">[Giza]</option>">
+                            <option class="text-center" value="Qalyubia">[Qalyubia]</option>">
+                            <option class="text-center" value="Port Said">[Port Said]</option>">
+                            <option class="text-center" value="Suez">[Suez]</option>">
+                            <option class="text-center" value="Luxor">[Luxor]</option>">
+                        </select>
 
-                    <div class="row mb-3">
-                        <label for="icon" class="col-md-4 col-form-label text-lg-end">{{ __('Product Images (choose on or more)') }}</label>
+                        @error('address')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+            </div>
+
+
+            <div class="row mb-3">
+                        <label for="icon" class="col-md-4 col-form-label text-lg-end">{{ __('Product Image(s) (choose on or more)') }}</label>
 
                         <div class="col-md-6">
                             <input id="filenames" type="file" class="form-control @error('filenames') is-invalid @enderror" name="filenames[]" multiple="multiple"  accept="image/png, image/gif, image/jpeg" required >

@@ -59,6 +59,7 @@
                         <th>#No.</th>
                         <th>Icon</th>
                         <th>Name</th>
+                        <th>Created at</th>
                         <th>Action</th>
                     </tr>
                     @php
@@ -68,11 +69,12 @@
                         <tr>
 
                             <td>{{++$i}}</td>
-                            <td><img src="{{ asset('upload/categories/'.$category->icon)}}" style="width: 100px" alt="category_icon"></td>
+                            <td><img src="{{ asset('upload/categories/'.$category->icon)}}" style="width: 70px" alt="category_icon"></td>
                             <td>{{ $category->name }}</td>
+                            <td>{{ $category->created_at }}</td>
                             <td>
 
-                                    <a class="btn btn-info" href="{{ url('dashboard/edit-category').'/'.$category->id }}">Edit</a>
+                                    <a class="btn btn-primary" href="{{ url('dashboard/edit-category').'/'.$category->id }}">Edit</a>
 
                                     <a class="btn btn-danger" href="{{ url('dashboard/delete-category').'/'.$category->id }}">Delete</a>
 

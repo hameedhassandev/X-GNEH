@@ -10,6 +10,11 @@
     <title>X-GNEH</title>
 
     <!-- Scripts -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
@@ -53,19 +58,23 @@
                                         Manage Users
                                     </a>
                                 </li>
-                        @endif
-                            @if(Auth::check() && Auth::user()->hasRole('seller'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('dashboard.listProduct')}}">
                                         List All Products
                                     </a>
                                 </li>
+                        @endif
+                            @if(Auth::check() && Auth::user()->hasRole('seller'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('dashboard.addProduct')}}">
                                         Add New Product
                                     </a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/dashboard/my-product/user/'. Auth::user()->id)}}">
+                                        My Products
+                                    </a>
+                                </li>
                             @endif
                     </ul>
 

@@ -21,4 +21,8 @@ class UserController extends Controller
    public function myProfile(){
        return view('profile');
    }
+
+   public function allUsers(){
+
+   }
 }

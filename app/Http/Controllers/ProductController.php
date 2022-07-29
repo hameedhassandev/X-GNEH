@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use function PHPUnit\Framework\isEmpty;
 
 class ProductController extends Controller
 {
@@ -13,13 +14,15 @@ class ProductController extends Controller
         return view('product.add', compact('categories'));
     }
 
+
     public function store(Request $request){
         $request->validate([
-            'product_name' => 'required|max:255',
-            'description' => 'required',
-            'price' => 'required',
+            'product_name' => 'required|max:64',
+            'description' => 'required|max:225',
+            'price' => 'required|digits_between:1,6',
             'category_id' => 'required',
             'filenames' => 'required',
+            'address'=> 'required|max:120'
 
         ]);
         $product = new Product();
@@ -28,11 +31,13 @@ class ProductController extends Controller
         $product->description = $request->input('description');
         $product->category_id = $request->input('category_id');
         $product->user_id = $request->input('user_id');
+        $product->address = $request->input('address');
 
 
         if ($request->hasfile('filenames')) {
             $images = $request->file('filenames');
-            $allowedfileExtension=['jpeg','jpg','png','svg'];
+            $allowedfileExtension=['jpeg','JPEG','jpg','JPG','png','PNG','SVG','svg','gif','GIF'];
+
             foreach($images as $image) {
                 $extension = $image->getClientOriginalExtension();
                 $check=in_array($extension,$allowedfileExtension);
@@ -40,27 +45,61 @@ class ProductController extends Controller
                     $filename = rand() . '.' . $extension;
                     $image->move('upload/products/', $filename);
                     $names [] = $filename;
-                    $json = json_encode($names);
+                   // $json = json_encode($names);
+                    $converArr = implode(",",$names);
                 }else{
                     return back()->with('fail', 'Allow only images like: jpeg, png, jpg , svg');
                 }
 
             }//end of foreach
-           $product->filenames = $json;
+           $product->filenames = $converArr;
 
         }
         $product->save();
         return back()->with('success', 'Product added successfully');
     }
 
-    public function list(){
+
+    public function listAllForAdmin(){
 
         $products = DB::table('products')
             ->join('categories','categories.id','=','products.category_id')
-            ->select('products.*','categories.*')
+            ->join('users','users.id','=','products.user_id')
+            ->select('products.*','categories.name','users.name as user_name')
+            ->where('products.isActive', '=','1')
             ->paginate(5);
-        print_r($products);
+//        print_r($products[0]);
         return view('product.index')->with('products', $products);
+    }
+
+    public function productDetails($id){
+        $details = DB::table('products')
+            ->join('categories','categories.id','=','products.category_id')
+            ->join('users','users.id','=','products.user_id')
+            ->select('products.*','categories.name','users.name as user_name','users.email','users.phone')
+            ->where('products.isActive', '=','1')
+            ->where('products.id','=',$id)
+            ->get();
+
+        if ($details){
+            return view('product.productDetails')->with('details', $details);
+        }else{
+            return response(404);
+        }
+
+    }
+
+
+    public function listAllForSeller($id){
+        $products = DB::table('products')
+            ->join('categories','categories.id','=','products.category_id')
+            ->join('users','users.id','=','products.user_id')
+            ->select('products.*','categories.name')
+            ->where('products.isActive', '=','1')
+            ->where('users.id','=',$id)
+            ->paginate(5);
+//        print_r($products[0]);
+        return view('product.sellerAllProduct')->with('products', $products);
     }
 
     public function delete($id){

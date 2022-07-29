@@ -24,7 +24,9 @@ class CreateProductsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('filenames');
             $table->boolean('isActive')->default('1');;
+            $table->string('address');
             $table->timestamps();
+
         });
     }
 
