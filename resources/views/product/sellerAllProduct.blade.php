@@ -17,7 +17,6 @@
                     @if ($products->count() == 0)
                             <h4 class="text-center">No products to display.</h4>
                     @endif
-
                             <h4><span>Name : </span>{{$p->product_name}}</h4>
                             <h4><span>Price : </span> {{$p->price}} (EGP)</h4>
                             <h4> <span>Description : </span>{{$p->description}}</h4>
@@ -27,15 +26,16 @@
                             <br>
                             <th class="p-2">
                                 <a href="#" class="btn btn-primary">Hide Product</a>
-                                <a href="#" class="btn btn-danger">Delete Product</a>
+                                <a href="{{url('/dashboard/my-products/user/delete-product/'.$p->id)}}" class="btn btn-danger">Delete Product</a>
                                 <a href="#" class="btn btn-success">Edit Product</a>
                             </th>
             </div>
             <div class="col-md-6">
-                <h4><span>Product Image(s)</span></h4>
+                <img src="{{asset('upload/products/2123574211.jpg')}}" alt="kk" style="width: 250px;height: 250px">
+                <br>
                 @if ($p->filenames != "")
                     @foreach(explode(',', $p->filenames) as $img)
-                        <img class="p-1"  src="{{ asset('upload/products/'.$img)}}" alt="prod_img" style="width: 150px;height: 150px">
+                        <img class="p-1" src="{{ asset('upload/products/'.$img)}}" alt="prod_img" style="width: 80px;height: 80px">
                     @endforeach
                 @endif
             </div>

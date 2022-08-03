@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\File;
 class CategoryController extends Controller
 {
     public function add(){
-        $categories = DB::table('categories')->get();
+        $categories = DB::table('categories') ->paginate(3);
         return view('category.index', compact('categories'));
     }
 

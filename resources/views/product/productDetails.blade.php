@@ -26,15 +26,16 @@
                         <br>
                    <th>
                        <a href="#" class="btn btn-primary">Hide Product</a>
-                       <a href="#" class="btn btn-danger">Delete Product</a>
-                       <a href="{{route('dashboard.listProduct')}}" class="btn btn-secondary">Back</a>
+                       <a href="{{url('/dashboard/my-products/admin/delete-product/'.$d->id)}}" class="btn btn-danger">Delete Product</a>
+                       <button class="btn btn-secondary" onclick="history.back()">Go Back</button>
                    </th>
                 </div>
                 <div class="col-md-6">
-                    <h4><span>Product Image(s)</span></h4>
+                    <img src="{{asset('upload/products/2123574211.jpg')}}" alt="kk" style="width: 300px;height: 300px">
+                    <br>
                     @if ($d->filenames != "")
                         @foreach(explode(',', $d->filenames) as $img)
-                            <img  src="{{ asset('upload/products/'.$img)}}" alt="prod_img" style="width: 150px;height: 150px">
+                            <img  src="{{ asset('upload/products/'.$img)}}" alt="prod_img" style="width: 100px;height: 100px">
                         @endforeach
                     @endif
                 </div>

@@ -34,6 +34,9 @@ Route::group(['middleware'=> ['auth', 'role:admin']], function (){
     Route::put('/dashboard/accEdit-category/{id}', [CategoryController::class, 'accEdit']);
     Route::get('/dashboard/list-products', [ProductController::class, 'listAllForAdmin'])->name('dashboard.listProduct');
     Route::get('/dashboard/list-products/product-details/{id}', [ProductController::class, 'productDetails']);
+    Route::post('/dashboard/list-products/search', [ProductController::class, 'search'])->name('dashboard.search');
+
+    Route::get('/dashboard/my-products/admin/delete-product/{id}', [ProductController::class, 'deleteProduct']);
 
 
 
@@ -43,7 +46,8 @@ Route::group(['middleware'=> ['auth', 'role:admin']], function (){
 Route::group(['middleware'=> ['auth', 'role:seller']], function (){
     Route::get('/dashboard/add-product', [ProductController::class, 'add'])->name('dashboard.addProduct');
     Route::post('/dashboard/add-product', [ProductController::class, 'store'])->name('dashboard.storeProduct');
-    Route::get('/dashboard/my-product/user/{id}', [ProductController::class, 'listAllForSeller']);
+    Route::get('/dashboard/my-products/user/{id}', [ProductController::class, 'listAllForSeller']);
+    Route::get('/dashboard/my-products/user/delete-product/{id}', [ProductController::class, 'deleteProduct']);
 
 });
 

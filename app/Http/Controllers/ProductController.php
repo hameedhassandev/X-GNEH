@@ -45,7 +45,6 @@ class ProductController extends Controller
                     $filename = rand() . '.' . $extension;
                     $image->move('upload/products/', $filename);
                     $names [] = $filename;
-                   // $json = json_encode($names);
                     $converArr = implode(",",$names);
                 }else{
                     return back()->with('fail', 'Allow only images like: jpeg, png, jpg , svg');
@@ -70,6 +69,21 @@ class ProductController extends Controller
             ->paginate(5);
 //        print_r($products[0]);
         return view('product.index')->with('products', $products);
+    }
+
+    public function search(Request $request){
+        $products = DB::table('products')
+            ->join('categories','categories.id','=','products.category_id')
+            ->join('users','users.id','=','products.user_id')
+            ->select('products.*','categories.name','users.name as user_name')
+            ->where('products.isActive', '=','1' )
+            ->where('categories.name' ,  'LIKE', "%" . $request->search . "%")
+            ->orWhere('products.product_name' ,'LIKE', "%" . $request->search . "%" )
+            ->orWhere('products.description' ,'LIKE', "%" . $request->search . "%" )
+            ->orWhere('users.name' ,'LIKE', "%" . $request->search . "%" )
+            ->paginate(5);
+        return view('product.index')->with('products', $products);
+
     }
 
     public function productDetails($id){
@@ -102,9 +116,10 @@ class ProductController extends Controller
         return view('product.sellerAllProduct')->with('products', $products);
     }
 
-    public function delete($id){
+    public function deleteProduct($id){
         $product = DB::table('products')->find($id);
         if ($product){
+            print_r($product);
             return view('product.delete', compact('product'));
         }else{
             return response(404);

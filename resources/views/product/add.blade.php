@@ -53,7 +53,7 @@
 
                         <div class="col-md-6">
 
-                            <textarea name="description" id="description" cols="30" rows="5"  class="form-control @error('description') is-invalid @enderror" required></textarea>
+                            <textarea name="description" id="description" cols="30" rows="4"  class="form-control @error('description') is-invalid @enderror" required></textarea>
                             @error('description')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

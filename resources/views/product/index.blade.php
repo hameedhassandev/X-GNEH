@@ -2,11 +2,24 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <h2>List All Active Products</h2>
+            <div class="col-12">
+                <div class="row">
+                <div class="col-6">
+                  <h2>List All Active Products</h2>
+                </div>
+                <div class="col-6">
+                    <form action="{{route('dashboard.search')}}" method="POST">
+                        @csrf
+                        <input type="text" id="search" name="search"  placeholder="search ..." required>
+                        <button type="submit">search</button>
+                        <a href="{{route('dashboard.listProduct')}}" >clear search</a>
+                    </form>
+                </div>
+                </div>
+            </div>
             <hr>
+            </main>
             <div class="col-md-12">
-
-
 
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -34,7 +47,6 @@
                     @foreach ($products as $product)
                         <tr>
                             <td>{{++$i}}</td>
-{{--                            <td>{{ json_encode($product->filenames,true)  }}</td>--}}
                             <td>{{ $product->product_name }}</td>
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->description }}</td>

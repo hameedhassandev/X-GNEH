@@ -82,6 +82,11 @@
                         </tr>
                     @endforeach
                 </table>
+                {{ $categories->links('pagination::bootstrap-4') }}
+
+                <p>
+                    Displaying {{$categories->count()}} of {{ $categories->total() }} categories.
+                </p>
 
             </div>
         </div>

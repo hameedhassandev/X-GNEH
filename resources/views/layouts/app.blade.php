@@ -71,7 +71,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('/dashboard/my-product/user/'. Auth::user()->id)}}">
+                                    <a class="nav-link" href="{{url('/dashboard/my-products/user/'. Auth::user()->id)}}">
                                         My Products
                                     </a>
                                 </li>
