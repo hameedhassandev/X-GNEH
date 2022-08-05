@@ -60,14 +60,12 @@ class ProductController extends Controller
 
 
     public function listAllForAdmin(){
-
         $products = DB::table('products')
             ->join('categories','categories.id','=','products.category_id')
             ->join('users','users.id','=','products.user_id')
             ->select('products.*','categories.name','users.name as user_name')
             ->where('products.isActive', '=','1')
             ->paginate(5);
-//        print_r($products[0]);
         return view('product.index')->with('products', $products);
     }
 
@@ -112,18 +110,16 @@ class ProductController extends Controller
             ->where('products.isActive', '=','1')
             ->where('users.id','=',$id)
             ->paginate(5);
-//        print_r($products[0]);
         return view('product.sellerAllProduct')->with('products', $products);
     }
 
     public function deleteProduct($id){
-        $product = DB::table('products')->find($id);
-        if ($product){
-            print_r($product);
-            return view('product.delete', compact('product'));
-        }else{
-            return response(404);
-        }
+            $product = Product::where('id',$id)->delete();
+            if ($product){
+                return redirect('dashboard/list-products');
+            }else{
+                return response(404);
+            }
     }
 
 }

@@ -26,17 +26,20 @@ Route::group(['middleware'=> ['auth']], function (){
 
 //for admin
 Route::group(['middleware'=> ['auth', 'role:admin']], function (){
-    Route::get('/dashboard/add-category', [CategoryController::class, 'add'])->name('dashboard.addCategory');
-    Route::post('/dashboard/add-category', [CategoryController::class, 'store'])->name('dashboard.storeCategory');
+    Route::get('/dashboard/admin/add-category', [CategoryController::class, 'add'])->name('dashboard.addCategory');
+    Route::post('/dashboard/admin/add-category', [CategoryController::class, 'store'])->name('dashboard.storeCategory');
     Route::get('/dashboard/delete-category/{id}', [CategoryController::class, 'delete']);
     Route::get('/dashboard/accDelete-category/{id}', [CategoryController::class, 'accDelete']);
     Route::get('/dashboard/edit-category/{id}', [CategoryController::class, 'edit']);
     Route::put('/dashboard/accEdit-category/{id}', [CategoryController::class, 'accEdit']);
     Route::get('/dashboard/list-products', [ProductController::class, 'listAllForAdmin'])->name('dashboard.listProduct');
-    Route::get('/dashboard/list-products/product-details/{id}', [ProductController::class, 'productDetails']);
+    Route::get('/dashboard/admin/list-products/product-details/{id}', [ProductController::class, 'productDetails']);
     Route::post('/dashboard/list-products/search', [ProductController::class, 'search'])->name('dashboard.search');
 
     Route::get('/dashboard/my-products/admin/delete-product/{id}', [ProductController::class, 'deleteProduct']);
+
+    Route::get('/dashboard/admin/profile', [UserController::class, 'myProfile'])->name('dashboard.admin.profile');
+
 
 
 
@@ -49,11 +52,14 @@ Route::group(['middleware'=> ['auth', 'role:seller']], function (){
     Route::get('/dashboard/my-products/user/{id}', [ProductController::class, 'listAllForSeller']);
     Route::get('/dashboard/my-products/user/delete-product/{id}', [ProductController::class, 'deleteProduct']);
 
+    Route::get('/dashboard/seller/profile', [UserController::class, 'myProfile'])->name('dashboard.seller.profile');
+
+
 });
 
 //for user
 Route::group(['middleware'=> ['auth', 'role:user']], function (){
-    Route::get('/dashboard/profile', [UserController::class, 'myProfile'])->name('dashboard.profile');
+    Route::get('/dashboard/user/profile', [UserController::class, 'myProfile'])->name('dashboard.user.profile');
 });
 
 

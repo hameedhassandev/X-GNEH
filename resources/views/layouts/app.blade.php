@@ -42,7 +42,7 @@
                     <ul class="navbar-nav me-auto">
                         @if(Auth::check() && Auth::user()->hasRole('user'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('dashboard.profile')}}">
+                                <a class="nav-link" href="{{route('dashboard.user.profile')}}">
                                     Profile
                                 </a>
                             </li>
@@ -63,6 +63,11 @@
                                         List All Products
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('dashboard.admin.profile')}}">
+                                        Profile
+                                    </a>
+                                </li>
                         @endif
                             @if(Auth::check() && Auth::user()->hasRole('seller'))
                                 <li class="nav-item">
@@ -73,6 +78,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{url('/dashboard/my-products/user/'. Auth::user()->id)}}">
                                         My Products
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('dashboard.seller.profile')}}">
+                                        Profile
                                     </a>
                                 </li>
                             @endif

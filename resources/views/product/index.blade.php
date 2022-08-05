@@ -55,7 +55,7 @@
                             <td>{{ $product->name }}</td>
 
                                 <td>
-                                    <a href="{{url('/dashboard/list-products/product-details/'.$product->id)}}">more details</a>
+                                    <a href="{{url('/dashboard/admin/list-products/product-details/'.$product->id)}}">more details</a>
 
                                 </td>
                         </tr>

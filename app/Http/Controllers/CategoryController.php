@@ -49,7 +49,7 @@ class CategoryController extends Controller
     public function accDelete($id){
         $category = Category::where('id',$id)->delete();
         if ($category){
-            return redirect('dashboard/add-category')->with('success', 'Category deleted successfully!');
+            return redirect('dashboard/admin/add-category')->with('success', 'Category deleted successfully!');
         }
         else{
             return response(404);
